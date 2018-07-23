@@ -20,4 +20,8 @@ function validationSetNullSimple($var1)
     }
 }
 
+function total($array, $columName) {
+    return array_sum(array_column($array, $columName));
+}
+
 ?>
