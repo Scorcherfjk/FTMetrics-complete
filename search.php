@@ -131,7 +131,7 @@
 
 						<!--celdas normales-->
 						<tr class='text-center'>
-							<form action="prueba.php" method="post">
+							<form action="modify.php" method="post">
 								<th scope="row"><?php echo $fila['sShortName'] ?></th>
 								<td><?php echo $fila['sPartId'] ?></td>
 								<td><?php echo $fechaInicio ?></td>
@@ -139,7 +139,7 @@
 								<td><?php echo $fila['dPartCount'] ?></td>
 								<td><?php echo $fila['dTotalParts'] ?></td>
 								<td><?php echo $fila['dScrapParts'] ?></td>
-								<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $fila['sShortName'] ; ?>">
+								<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $fila['lOEEConfigWorkCellId'] ; ?>">
 								<input type="hidden"  id="inicio" name="inicio" value="<?php echo $fechaInicio ; ?>">
 								<input type="hidden" id="final" name="final" value="<?php echo $fechaFinal ; ?>">						
 								<td>
