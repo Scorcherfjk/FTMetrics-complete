@@ -16,7 +16,7 @@ function primaryQuery($opcion,$inicio,$final)
             AND wc.lOEEConfigWorkCellId = $opcion
             AND (wc.tStart >= '$inicio' OR wc.tEnd <= '$final')
             AND NOT (wc.tStart < '$inicio' OR wc.tEnd > '$final')
-        ORDER BY wc.sPartId";
+        ORDER BY wc.tStart";
 
     return $query;
 }
