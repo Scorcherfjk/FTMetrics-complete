@@ -21,6 +21,7 @@ function defaultQuery()
 function primaryQuery($opcion,$inicio,$final)
 {
     $query = "SELECT wc.lOEEWorkCellId,
+            cwc.lOEEConfigWorkCellId,
             cwc.sShortName,
             wc.sPartId,
             wc.tStart,
@@ -44,8 +45,8 @@ function dropDown(){
             FROM FTMetrics.dbo.OEEWorkCell as wc, 
                 FTMetrics.dbo.OEEConfigWorkCell as cwc
             WHERE wc.lOEEConfigWorkCellId = cwc.lOEEConfigWorkCellId
-            GROUP BY cwc.sShortName, wc.lOEEConfigWorkCellId 
-            ORDER BY cwc.sShortName ";
+            GROUP BY cwc.ssn, wc.icwc 
+            ORDER BY cwc.ssn ";
 
     return $query;   
 }
