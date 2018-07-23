@@ -45,8 +45,8 @@ function dropDown(){
             FROM FTMetrics.dbo.OEEWorkCell as wc, 
                 FTMetrics.dbo.OEEConfigWorkCell as cwc
             WHERE wc.lOEEConfigWorkCellId = cwc.lOEEConfigWorkCellId
-            GROUP BY cwc.ssn, wc.icwc 
-            ORDER BY cwc.ssn ";
+            GROUP BY cwc.sShortName, wc.lOEEConfigWorkCellId 
+            ORDER BY cwc.sShortName";
 
     return $query;   
 }
