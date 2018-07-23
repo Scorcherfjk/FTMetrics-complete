@@ -83,7 +83,7 @@
 					<?php while ($fila = sqlsrv_fetch_array($prep)){				
 
 						//si la contiene algun valor en la columna de dScrapParts sera resaltada
-						if ($fila['dScrapParts'] != 0){
+						if ($fila['dScrapParts'] != 0 || $fila['dTotalParts'] == 0){
 							?>
 								<!--celda en caso de que ya haya una modificicion del Scrap-->
 								<tr class="table-danger text-center" >
