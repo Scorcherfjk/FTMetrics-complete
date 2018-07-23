@@ -4,7 +4,6 @@
 	
 	require('./conexion.php');
 	require('./consultas.php');
-	require('./funciones.php');
 
 ?>
 

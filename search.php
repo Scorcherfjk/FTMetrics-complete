@@ -86,29 +86,26 @@
 					<!--encabezados de la pagina-->
 					<thead>
 						<tr class='text-center' >
-						<th scope="col">Short Name</th>
-						<th scope="col">Part Id</th>
-						<?php if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final'] ) ) ) { ?>
+							<th scope="col">Short Name</th>
+							<th scope="col">Part Id</th>
 							<th scope="col">Start Time</th>
 							<th scope="col">End Time</th>
-						<?php } ?>
-						<th scope="col">Good Parts</th>
-						<th scope="col">Total Parts</th>
-						<th scope="col">Scrap Parts</th>
-						<?php if  ( validationSetNullSimple(isset($_POST['seleccion'])) ) { ?>
+							<th scope="col">Good Parts</th>
+							<th scope="col">Total Parts</th>
+							<th scope="col">Scrap Parts</th>
 							<th scope="col">Modify</th>
-						<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
+						
 					<!--construccion de las celdas-->
-					<?php while ($fila = sqlsrv_fetch_array($prep)){				
+					<?php while ($fila = sqlsrv_fetch_array($prep)){
+
 						//pasando las fechas a variables
-						if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final']) ) ){	
-							json_encode($fila);
-							$fechaInicio = substr($fila['tStart']->date, 0, 19);
-							$fechaFinal = substr($fila['tEnd']->date, 0, 19);
-						}
+						json_encode($fila);
+						$fechaInicio = substr($fila['tStart']->date, 0, 19);
+						$fechaFinal = substr($fila['tEnd']->date, 0, 19);
+
 						//si la contiene algun valor en la columna de dScrapParts sera resaltada
 						if ($fila['dScrapParts'] != 0){
 							?>
@@ -116,16 +113,12 @@
 								<tr class="table-danger text-center" >
 								<th scope="row"><?php echo $fila['sShortName'] ?></th>
 									<td><?php echo $fila['sPartId'] ?></td>
-									<?php if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final'])) ){?>
-										<td><?php echo $fechaInicio ?></td>
-										<td><?php echo $fechaFinal ?></td>
-									<?php } ?>
+									<td><?php echo $fechaInicio ?></td>
+									<td><?php echo $fechaFinal ?></td>
 									<td><?php echo $fila['dPartCount'] ?></td>
 									<td><?php echo $fila['dTotalParts'] ?></td>
 									<td><?php echo $fila['dScrapParts'] ?></td>
-									<?php if  (  validationSetNullSimple(isset($fila['lOEEWorkCellId'])) ){?>
-										<td>can't modify</td>
-									<?php } ?>
+									<td>can't modify</td>
 								</tr>
 							<?php 
 							continue;
@@ -133,24 +126,20 @@
 						<!--celdas normales-->
 						<tr class='text-center'>
 							<form action="prueba.php" method="post">
-							<th scope="row"><?php echo $fila['sShortName'] ?></th>
-							<td><?php echo $fila['sPartId'] ?></td>
-							<?php if  (validationSetNullDual(isset($_POST['inicio']), isset($_POST['final'] ) ) ){?>
+								<th scope="row"><?php echo $fila['sShortName'] ?></th>
+								<td><?php echo $fila['sPartId'] ?></td>
 								<input type="hidden" name="inicio" value="<?php echo $_POST['inicio'] ; ?>">
 								<input type="hidden" name="final" value="<?php echo $_POST['final'] ; ?>">
 								<td><?php echo $fechaInicio ?></td>
 								<td><?php echo $fechaFinal ?></td>
-							<?php } ?>
-							<td><?php echo $fila['dPartCount'] ?></td>
-							<td><?php echo $fila['dTotalParts'] ?></td>
-							<td><?php echo $fila['dScrapParts'] ?></td>						
-							<?php if  ( validationSetNullSimple(isset($fila['lOEEWorkCellId'])) ){?>
+								<td><?php echo $fila['dPartCount'] ?></td>
+								<td><?php echo $fila['dTotalParts'] ?></td>
+								<td><?php echo $fila['dScrapParts'] ?></td>						
 								<td>
 									<input type="hidden" name="id" value="<?php echo  str_replace(" ","",$fila['sShortName']." _ ".$fila['sPartId']." _ ".$fila['lOEEWorkCellId']) ; ?>">
 									<input class="btn btn-dark btn-sm" type="submit" value="modify">
 								</td>
 							</form>
-							<?php } ?>
 						</tr>
 					<?php
 					} 					
