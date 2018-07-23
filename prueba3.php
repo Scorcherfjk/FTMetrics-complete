@@ -24,7 +24,9 @@ if ( $resultado = sqlsrv_execute($prep) ) {
                     $fechaFinal = substr($fila['tEnd']->date, 0, 19);
 
                     if ($fila['sPartId'] == '16 oz'){
-                        if ($datos12 != []){ 
+                        if ($datos12 != []){
+                            echo "fecha 12 oz: ".max($datos12);
+                            echo("<br/>");                            
                             echo "dTotalParts 12 oz: ".total($datos12, 'dTotalParts');
                             echo("<br/>");
                             echo "dPartCount 12 oz: ".total($datos12, 'dPartCount');
@@ -52,24 +54,7 @@ if ( $resultado = sqlsrv_execute($prep) ) {
                     }
                 }
                     
-                    if ($datos12 != []){ 
-                        echo "dTotalParts 12 oz: ".total($datos12, 'dTotalParts');
-                        echo("<br/>");
-                        echo "dPartCount 12 oz: ".total($datos12, 'dPartCount');
-                        echo("<br/>");
-                        echo "dScrapParts 12 oz: ".total($datos12, 'dScrapParts');
-                        echo("<br/>");
-                        echo("<br/>");
-                        echo("<br/>");
-                    } elseif ($datos16 != []){
-                        echo "dTotalParts 16 oz: ".total($datos16, 'dTotalParts');
-                        echo("<br/>");
-                        echo "dPartCount 16 oz: ".total($datos16, 'dPartCount');
-                        echo("<br/>");
-                        echo "dScrapParts 16 oz: ".total($datos16, 'dScrapParts');
-                        echo("<br/>");
-                        echo("<br/>");
-                        echo("<br/>");
-                    }
-                }            
+                validar($datos12, $datos16);
+                    
+                }    
 ?>
