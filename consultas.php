@@ -50,6 +50,16 @@ function dropDown(){
 
     return $query;   
 }
+
+function updateQuery($lOEEWorkCellId, $quantity){
+
+    $query = "UPDATE FTMetrics.dbo.OEEWorkCell
+            SET dPartCount = (dPartCount - '$quantity'), dScrapParts = '$quantity'
+            WHERE lOEEWorkCellId = '$lOEEWorkCellId'";
+
+    return $query;
+
+}
     
 
 ?>
