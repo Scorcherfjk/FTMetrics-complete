@@ -120,7 +120,7 @@
 										<td><?php echo total($datos12, 'dPartCount'); ?></td>
 										<td><?php echo total($datos12, 'dTotalParts'); ?></td>
 										<td><?php echo total($datos12, 'dScrapParts'); ?></td>
-										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12['lOEEConfigWorkCellId'] ; ?>">
+										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12[0]['lOEEConfigWorkCellId'] ; ?>">
 										<input type="hidden"  id="inicio" name="inicio" value="<?php echo  substr($datos12[0]['tStart']->date, 0, 19); ?>">
 										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?>">						
 										<td>
@@ -146,7 +146,7 @@
 										<td><?php echo total($datos16, 'dPartCount'); ?></td>
 										<td><?php echo total($datos16, 'dTotalParts'); ?></td>
 										<td><?php echo total($datos16, 'dScrapParts'); ?></td>
-										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16['lOEEConfigWorkCellId'] ; ?>">
+										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16[0]['lOEEConfigWorkCellId'] ; ?>">
 										<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos16[0]['tStart']->date, 0, 19); ?>">
 										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?>">						
 										<td>

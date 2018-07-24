@@ -1,7 +1,7 @@
 <!doctype html>
 
 <?php
-	
+
 	require('./conexion.php');
 	require('./consultas.php');
 	require('./funciones.php');
@@ -74,8 +74,8 @@
 
 			//formateo de las variables para la consulta
 			$opcion = $_POST['seleccion'];
-			$inicio = str_replace("T"," ",$_POST['inicio']).":00.000" ;
-			$final = str_replace("T"," ",$_POST['final']).":00.000" ;
+			$inicio = $_POST['inicio'];
+			$final = $_POST['final'];
 			
 			//consulta al pasar la fecha
 			$query = primaryQuery($opcion,$inicio,$final);
@@ -143,7 +143,7 @@
 								<input type="hidden"  id="inicio" name="inicio" value="<?php echo $fechaInicio ; ?>">
 								<input type="hidden" id="final" name="final" value="<?php echo $fechaFinal ; ?>">						
 								<td>
-									<input class="btn btn-dark btn-sm" type="submit" value="modify">
+									<input class="btn btn-dark btn-sm" type="submit" value="add Scrap">
 								</td>
 							</form>
 						</tr>
