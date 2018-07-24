@@ -1,5 +1,10 @@
 <?php
 
+function total($array, $columName) 
+{
+    return array_sum(array_column($array, $columName));
+}
+
 function validationSetNullDual($var1, $var2)
 {
     if (isset($var1) && $var1 != "" && isset($var2) && $var2 != ""){
@@ -20,11 +25,8 @@ function validationSetNullSimple($var1)
     }
 }
 
-function total($array, $columName) {
-    return array_sum(array_column($array, $columName));
-}
-
-function validar($array1, $array2){
+function validar($array1, $array2)
+{
 
     if ($array1 != []){
         json_encode($array1);
@@ -36,9 +38,21 @@ function validar($array1, $array2){
         $dTotalParts = total($array1, 'dTotalParts');
         $dPartCount = total($array1, 'dScrapParts');
         $dScrapParts = total($array1, 'dPartCount');
-        $array = array( 'lOEEConfigWorkCellId' => $Id, 'sShortName' => $shortName,'sPartId' =>  $partId,'tStart' => $fechaI,'tEnd' => $fechaF,'dTotalParts' => $dTotalParts,'dScrapParts' =>  $dScrapParts,'dPartCount' =>  $dPartCount);
+        $array = array( 'lOEEConfigWorkCellId' => $Id, 
+                        'sShortName' => $shortName,
+                        'sPartId' =>  $partId,
+                        'tStart' => $fechaI,
+                        'tEnd' => $fechaF,
+                        'dTotalParts' => $dTotalParts,
+                        'dScrapParts' =>  $dScrapParts,
+                        'dPartCount' =>  $dPartCount
+                    );
+
         return $array;
-    } elseif ($array2 != []){
+
+    } 
+    elseif ($array2 != []){
+
         json_encode($array2);
         $Id = $array2[0]['lOEEConfigWorkCellId'] ;
         $shortName = $array2[0]['sShortName'] ;
@@ -48,7 +62,16 @@ function validar($array1, $array2){
         $dTotalParts = total($array2, 'dTotalParts');
         $dPartCount = total($array2, 'dScrapParts');
         $dScrapParts = total($array2, 'dPartCount');
-        $array = array( 'lOEEConfigWorkCellId' => $Id, 'sShortName' => $shortName,'sPartId' =>  $partId,'tStart' => $fechaI,'tEnd' => $fechaF,'dTotalParts' => $dTotalParts,'dScrapParts' =>  $dScrapParts,'dPartCount' =>  $dPartCount);
+        $array = array( 'lOEEConfigWorkCellId' => $Id, 
+                        'sShortName' => $shortName,
+                        'sPartId' =>  $partId,
+                        'tStart' => $fechaI,
+                        'tEnd' => $fechaF,
+                        'dTotalParts' => $dTotalParts,
+                        'dScrapParts' =>  $dScrapParts,
+                        'dPartCount' =>  $dPartCount
+                    );
+
         return $array;
     }
 }
