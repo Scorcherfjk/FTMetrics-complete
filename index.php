@@ -1,7 +1,8 @@
 <!doctype html>
 
 <?php
-	
+
+	session_destroy();
 	require('./conexion.php');
 	require('./consultas.php');
 
@@ -21,13 +22,13 @@
     <div class="container">
     	<div class="jumbotron">
 			<div class="row">
-				<h1 class='text-center col'>FTMetrics</h1>
+				<h1 class='text-center display-1 col'>FTMetrics</h1>
 				<!--inicio del formulario-->
 				<form name="form1" method="post" action="search.php" style="max-width:300px; margin:auto;" class="col">
 					<!--ventana de seleccion de opciones-->
 					<div class="form-group">
 						<label for="seleccion">Herramienta</label>
-						<select id="seleccion" name="seleccion" class="form-control">
+						<select id="seleccion" name="seleccion" class="custom-select">
 							<?php
 							//contruccion de las opciones
 							$option = dropDown();

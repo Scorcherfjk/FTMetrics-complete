@@ -2,6 +2,16 @@
 
 <?php
 
+session_start();
+
+if ($_POST['inicio'] == "" || $_POST['final'] == ""){
+	header("Location:"."/FTMetrics/php/");
+}else{
+	$_SESSION['opcion2'] = $_POST['seleccion'];
+	$_SESSION['fechaI2'] = $_POST['inicio'];
+	$_SESSION['fechaF2'] = $_POST['final'];
+}
+
 	require('./conexion.php');
 	require('./consultas.php');
 	require('./funciones.php');
@@ -24,7 +34,7 @@
     <div class="container">
     	<div class="jumbotron">
 			<div class="row">  <a href="./index.php"></a>
-				<h1 class='text-center col'><a href="./index.php"> FTMetrics</a></h1>
+				<h1 class='text-center display-1 col'><a href="./index.php"> FTMetrics</a></h1>
 
 				<!--inicio del formulario-->
 				<form name="form1" method="post" action="" style="max-width:300px; margin:auto;" class="col">
@@ -32,7 +42,7 @@
 					<!--ventana de seleccion de opciones-->
 					<div class="form-group">
 						<label for="seleccion">Herramienta</label>
-						<select id="seleccion" name="seleccion" class="form-control">
+						<select id="seleccion" name="seleccion" class="custom-select">
 							<?php
 
 							//contruccion de las opciones
