@@ -5,6 +5,8 @@
 	require('./conexion.php');
 	require('./consultas.php');
 	require('./funciones.php');
+	$datos12 = array();
+	$datos16 = array();
 
 ?>
 
@@ -103,55 +105,89 @@
 						
 					<!--construccion de las celdas-->
 					<?php while ($fila = sqlsrv_fetch_array($prep)){
-
-						//pasando las fechas a variables
 						json_encode($fila);
-						$fechaInicio = substr($fila['tStart']->date, 0, 19);
-						$fechaFinal = substr($fila['tEnd']->date, 0, 19);
 
-						//si la contiene algun valor en la columna de dScrapParts sera resaltada
-						if ($fila['dScrapParts'] != 0 || $fila['dTotalParts'] == 0){
-							?>
-
-								<!--celda en caso de que ya haya una modificicion del Scrap-->
-								<tr class="table-danger text-center" >
-								<th scope="row"><?php echo $fila['sShortName'] ?></th>
-									<td><?php echo $fila['sPartId'] ?></td>
-									<td><?php echo $fechaInicio ?></td>
-									<td><?php echo $fechaFinal ?></td>
-									<td><?php echo $fila['dPartCount'] ?></td>
-									<td><?php echo $fila['dTotalParts'] ?></td>
-									<td><?php echo $fila['dScrapParts'] ?></td>
-									<td>can't modify</td>
+						//celdas normales
+						if ($fila['sPartId'] == '16 oz'){
+							if ($datos12 != []){ 
+								json_encode($datos12); ?>
+								<tr class='text-center'>
+									<form action="modify.php" method="post">
+										<th scope="row"><?php echo $datos12[0]['sShortName'] ?></th>
+										<td><?php echo $datos12[0]['sPartId']; ?></td>
+										<td><?php echo  substr($datos12[0]['tStart']->date, 0, 19); ?></td>
+										<td><?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?></td>
+										<td><?php echo total($datos12, 'dPartCount'); ?></td>
+										<td><?php echo total($datos12, 'dTotalParts'); ?></td>
+										<td><?php echo total($datos12, 'dScrapParts'); ?></td>
+										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12['lOEEConfigWorkCellId'] ; ?>">
+										<input type="hidden"  id="inicio" name="inicio" value="<?php echo  $datos12[0]['tStart']->date; ?>">
+										<input type="hidden" id="final" name="final" value="<?php echo end($datos12)['tEnd']->date; ?>">						
+										<td>
+											<input class="btn btn-dark btn-sm" type="submit" value="modify">
+										</td>
+									</form>
 								</tr>
 
-							<?php 
-							continue;
-						} ?>
+								<?php
+							}
+							$datos16[] = $fila;
+							$datos12 = array();
 
-						<!--celdas normales-->
-						<tr class='text-center'>
-							<form action="modify.php" method="post">
-								<th scope="row"><?php echo $fila['sShortName'] ?></th>
-								<td><?php echo $fila['sPartId'] ?></td>
-								<td><?php echo $fechaInicio ?></td>
-								<td><?php echo $fechaFinal ?></td>
-								<td><?php echo $fila['dPartCount'] ?></td>
-								<td><?php echo $fila['dTotalParts'] ?></td>
-								<td><?php echo $fila['dScrapParts'] ?></td>
-								<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $fila['lOEEConfigWorkCellId'] ; ?>">
-								<input type="hidden"  id="inicio" name="inicio" value="<?php echo $fechaInicio ; ?>">
-								<input type="hidden" id="final" name="final" value="<?php echo $fechaFinal ; ?>">						
-								<td>
-									<input class="btn btn-dark btn-sm" type="submit" value="modify">
-								</td>
-							</form>
-						</tr>
-					<?php
-					} 					
+						}else{
+							if ($datos16 != []){ 
+								json_encode($datos16); ?>
+								<tr class='text-center'>
+									<form action="modify.php" method="post">
+										<th scope="row"><?php echo $datos16[0]['sShortName'] ?></th>
+										<td><?php echo $datos16[0]['sPartId']; ?></td>
+										<td><?php echo  substr($datos16[0]['tStart']->date, 0, 19); ?></td>
+										<td><?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?></td>
+										<td><?php echo total($datos16, 'dPartCount'); ?></td>
+										<td><?php echo total($datos16, 'dTotalParts'); ?></td>
+										<td><?php echo total($datos16, 'dScrapParts'); ?></td>
+										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16['lOEEConfigWorkCellId'] ; ?>">
+										<input type="hidden"  id="inicio" name="inicio" value="<?php echo  $datos16[0]['tStart']->date; ?>">
+										<input type="hidden" id="final" name="final" value="<?php echo end($datos16)['tEnd']->date;?>">						
+										<td>
+											<input class="btn btn-dark btn-sm" type="submit" value="modify">
+										</td>
+									</form>
+								</tr>
+
+							<?php
+							}
+							$datos12[] = $fila;
+							$datos16 = array();
+					}
+				} 	
+				
+
+					$array = validar($datos12, $datos16); 
+					json_encode($array);
 					?>
+
+					<tr class='text-center'>
+					<form action="modify.php" method="post">
+						<th scope="row"><?php echo $array['sShortName'] ?></th>
+						<td><?php echo $array['sPartId']; ?></td>
+						<td><?php echo $array['tStart'];  ?></td>
+						<td><?php echo $array['tEnd'];  ?></td>
+						<td><?php echo $array['dPartCount']; ?></td>
+						<td><?php echo $array['dTotalParts']; ?></td>
+						<td><?php echo $array['dScrapParts']; ?></td>
+						<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $array['lOEEConfigWorkCellId'] ; ?>">
+						<input type="hidden"  id="inicio" name="inicio" value="<?php  echo  $array['tStart']; ?>">
+						<input type="hidden" id="final" name="final" value="<?php echo $array['tEnd']; ?>">						
+						<td>
+							<input class="btn btn-dark btn-sm" type="submit" value="modify">
+						</td>
+					</form>
+				</tr>
+					
 			<?php
 			}
+
 		}else{
 
 			//en caso de la conexion falle
