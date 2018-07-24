@@ -20,6 +20,14 @@
 	$inicio = $_POST['inicio'];
 	$final = $_POST['final'];
 
+	if ( isset($_POST['addScrap']) && $_POST['addScrap'] != "" ){
+			header("Location:"."/FTMetrics/php/");
+	}else{
+		$_POST['seleccion'] = $_SESSION['opcion3'];
+		$_POST['inicio'] = $_SESSION['fechaI3'];
+		$_POST['final'] = $_SESSION['fechaF3'];
+	}
+
 	?>
 
     <!-- Required meta tags -->
@@ -65,14 +73,15 @@ while ( $fila = sqlsrv_fetch_array($prep) ){
 	</ul>
 	<br><br>
 	
-	<form class="form-inline justify-content-center" method="POST" action="">
+	<form class="form-inline justify-content-center" method="POST" action="update.php">
 		<div class="form-group mb-2">
 		  <label for="Scrap" class="sr-only">Scrap</label>
 		  <input type="text" readonly class="form-control-plaintext" id="Scrap" value="Quantity to add to scrap: ">
 		</div>
 		<div class="form-group mx-sm-3 mb-2">
 		  <label for="addScrap" class="sr-only">addScrap</label>
-		  <input required type="number" class="form-control" id="addScrap" placeholder="Scrap">
+		  <input required type="number" class="form-control" name="addScrap" id="addScrap" placeholder="Scrap">
+		  <input type="hidden" name="lOEEWorkCellId" value="<?php  echo $fila['lOEEWorkCellId']; ?>">
 		</div>
 		<button type="submit" class="btn btn-primary mb-2">Add Scrap</button>
 	  </form>
@@ -80,8 +89,4 @@ while ( $fila = sqlsrv_fetch_array($prep) ){
 <?php
 }
 
-if ( isset($_POST['addScrap']) && $_POST['addScrap'] != "" ){
-
-	header("Location:"."/FTMetrics/php/");
-}
 ?>

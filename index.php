@@ -2,7 +2,7 @@
 
 <?php
 
-	session_destroy();
+	if (session_start()){session_destroy();}
 	require('./conexion.php');
 	require('./consultas.php');
 

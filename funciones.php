@@ -36,8 +36,8 @@ function validar($array1, $array2)
         $fechaI = substr($array1[0]['tStart']->date, 0, 19);
         $fechaF = substr(end($array1)['tEnd']->date, 0, 19);
         $dTotalParts = total($array1, 'dTotalParts');
-        $dPartCount = total($array1, 'dScrapParts');
-        $dScrapParts = total($array1, 'dPartCount');
+        $dScrapParts = total($array1, 'dScrapParts');
+        $dPartCount = total($array1, 'dPartCount');
         $array = array( 'lOEEConfigWorkCellId' => $Id, 
                         'sShortName' => $shortName,
                         'sPartId' =>  $partId,
@@ -60,8 +60,8 @@ function validar($array1, $array2)
         $fechaI = substr($array2[0]['tStart']->date, 0, 19);
         $fechaF = substr(end($array2)['tEnd']->date, 0, 19);
         $dTotalParts = total($array2, 'dTotalParts');
-        $dPartCount = total($array2, 'dScrapParts');
-        $dScrapParts = total($array2, 'dPartCount');
+        $dScrapParts = total($array2, 'dScrapParts');
+        $dPartCount = total($array2, 'dPartCount');
         $array = array( 'lOEEConfigWorkCellId' => $Id, 
                         'sShortName' => $shortName,
                         'sPartId' =>  $partId,
