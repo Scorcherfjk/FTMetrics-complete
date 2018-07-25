@@ -4,7 +4,6 @@
   <head>
 
 	<?php
-	print_r($_SESSION);
 
 	if ($_POST['inicio'] == "" || $_POST['final'] == ""){
 		header("Location:"."/FTMetrics/php/public/");
@@ -14,8 +13,8 @@
 		$_SESSION['fechaF3'] = $_POST['final'];
 	}
 	
-	require('../conection/conexion.php');
-	require('../conection/consultas.php');
+	require('../connection/conexion.php');
+	require('../connection/consultas.php');
 	$opcion = $_POST['seleccion'];
 	$inicio = $_POST['inicio'];
 	$final = $_POST['final'];
@@ -73,7 +72,7 @@ while ( $fila = sqlsrv_fetch_array($prep) ){
 	</ul>
 	<br><br>
 	
-	<form class="form-inline justify-content-center" method="POST" action="../conection/update.php">
+	<form class="form-inline justify-content-center" method="POST" action="../connection/update.php">
 		<div class="form-group mb-2">
 		  <label for="Scrap" class="sr-only">Scrap</label>
 		  <input type="text" readonly class="form-control-plaintext" id="Scrap" value="Quantity to add to scrap: ">

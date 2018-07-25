@@ -13,9 +13,9 @@ if ( !(isset($_SESSION['opcion1'])) ){
 	}
 }
 
-	require('../conection/conexion.php');
-	require('../conection/consultas.php');
-	require('../conection/funciones.php');
+	require('../connection/conexion.php');
+	require('../connection/consultas.php');
+	require('../connection/funciones.php');
 	$datos12 = array();
 	$datos16 = array();
 

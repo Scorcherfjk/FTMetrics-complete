@@ -3,8 +3,8 @@
 
 <?php
 
-	require('../conection/conexion.php');
-	require('../conection/consultas.php');
+	require('../connection/conexion.php');
+	require('../connection/consultas.php');
 
 ?>
 
