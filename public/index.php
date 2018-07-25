@@ -1,10 +1,10 @@
 <!doctype html>
 
 <?php
-	
-	require('./conexion.php');
-	require('./consultas.php');
-	require('./funciones.php');
+
+	if (session_start()){session_destroy();}
+	require('../conection/conexion.php');
+	require('../conection/consultas.php');
 
 ?>
 
@@ -22,13 +22,13 @@
     <div class="container">
     	<div class="jumbotron">
 			<div class="row">
-				<h1 class='text-center col'>FTMetrics</h1>
+				<h1 class='text-center display-1 col'>FTMetrics</h1>
 				<!--inicio del formulario-->
-				<form name="form1" method="post" action="" style="max-width:300px; margin:auto;" class="col">
+				<form name="form1" method="post" action="search.php" style="max-width:300px; margin:auto;" class="col">
 					<!--ventana de seleccion de opciones-->
 					<div class="form-group">
 						<label for="seleccion">Herramienta</label>
-						<select id="seleccion" name="seleccion" class="form-control">
+						<select id="seleccion" name="seleccion" class="custom-select">
 							<?php
 							//contruccion de las opciones
 							$option = dropDown();
@@ -61,22 +61,8 @@
 		//validando conexion
 		if( isset( $conn ) ) {
 			//construyendo la consulta de la tabla
-			if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final'])) ){
-
-				//formateo de las variables para la consulta
-				$opcion = $_POST['seleccion'];
-				$inicio = str_replace("T"," ",$_POST['inicio']).":00.000" ;
-				$final = str_replace("T"," ",$_POST['final']).":00.000" ;
-				
-				//consulta al pasar la fecha
-				$query = primaryQuery($opcion,$inicio,$final);
-			}
-			else{
-				
-				//consulta por defecto
-				$query = defaultQuery();
-			}
-			
+			//consulta por defecto
+			$query = defaultQuery();
 			$prep = sqlsrv_prepare($conn,$query);
 			
 			if ( $resultado = sqlsrv_execute($prep) ) { 
@@ -88,44 +74,25 @@
 						<tr class='text-center' >
 						<th scope="col">Short Name</th>
 						<th scope="col">Part Id</th>
-						<?php if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final'] ) ) ) { ?>
-							<th scope="col">Start Time</th>
-							<th scope="col">End Time</th>
-						<?php } ?>
 						<th scope="col">Good Parts</th>
 						<th scope="col">Total Parts</th>
 						<th scope="col">Scrap Parts</th>
-						<?php if  ( validationSetNullSimple(isset($_POST['seleccion'])) ) { ?>
-							<th scope="col">Modify</th>
-						<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
 					<!--construccion de las celdas-->
 					<?php while ($fila = sqlsrv_fetch_array($prep)){				
-						//pasando las fechas a variables
-						if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final']) ) ){	
-							json_encode($fila);
-							$fechaInicio = substr($fila['tStart']->date, 0, 19);
-							$fechaFinal = substr($fila['tEnd']->date, 0, 19);
-						}
+
 						//si la contiene algun valor en la columna de dScrapParts sera resaltada
-						if ($fila['dScrapParts'] != 0){
+						if ($fila['dScrapParts'] != 0 || $fila['dTotalParts'] == 0){
 							?>
 								<!--celda en caso de que ya haya una modificicion del Scrap-->
 								<tr class="table-danger text-center" >
 								<th scope="row"><?php echo $fila['sShortName'] ?></th>
 									<td><?php echo $fila['sPartId'] ?></td>
-									<?php if  ( validationSetNullDual(isset($_POST['inicio']), isset($_POST['final'])) ){?>
-										<td><?php echo $fechaInicio ?></td>
-										<td><?php echo $fechaFinal ?></td>
-									<?php } ?>
 									<td><?php echo $fila['dPartCount'] ?></td>
 									<td><?php echo $fila['dTotalParts'] ?></td>
 									<td><?php echo $fila['dScrapParts'] ?></td>
-									<?php if  (  validationSetNullSimple(isset($fila['lOEEWorkCellId'])) ){?>
-										<td>can't modify</td>
-									<?php } ?>
 								</tr>
 							<?php 
 							continue;
@@ -134,47 +101,9 @@
 						<tr class='text-center'>
 							<th scope="row"><?php echo $fila['sShortName'] ?></th>
 							<td><?php echo $fila['sPartId'] ?></td>
-							<?php if  (validationSetNullDual(isset($_POST['inicio']), isset($_POST['final']) ) ){?>
-								<td><?php echo $fechaInicio ?></td>
-								<td><?php echo $fechaFinal ?></td>
-							<?php } ?>
 							<td><?php echo $fila['dPartCount'] ?></td>
 							<td><?php echo $fila['dTotalParts'] ?></td>
 							<td><?php echo $fila['dScrapParts'] ?></td>						
-							<?php if  ( validationSetNullSimple(isset($fila['lOEEWorkCellId'])) ){?>
-								<!--boton que abre la ventana modal-->
-								<td>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo str_replace(" ","",$fila['sShortName']." _ ".$fila['sPartId']." _ ".$fila['lOEEWorkCellId']); ?>">Add Scrap </button>
-										<div class="modal fade" id="<?php echo  str_replace(" ","",$fila['sShortName']." _ ".$fila['sPartId']." _ ".$fila['lOEEWorkCellId']) ; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Modify <?php echo $fila['sShortName']." - ".$fila['sPartId']." - ".$fila['lOEEWorkCellId'] ; ?></h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form>
-												<div class="form-group">
-												<div class="input-group mb-3">
-													<div class="input-group-prepend">
-														<span class="input-group-text" id="inputGroup-sizing-default">Quantity:</span>
-													</div>
-														<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-													</div>
-												</div>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Load</button>
-											</div>
-											</div>
-										</div>
-										</div>
-								</td>
-							<?php } ?>
 						</tr>
 					<?php
 					} 					
@@ -187,7 +116,8 @@
 			die( "<strong>el error ha sido : </strong>".print_r( sqlsrv_errors(), true));
 		}
 			?>
-    </div>
+	</div>
+	
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
