@@ -33,10 +33,10 @@ if ( !(isset($_SESSION['opcion2'])) ){
   </head>
   <body>
     <div class="container">
-	<button type="button" class="btn btn-outline-primary btn-lg btn-block"
-	onclick="location='/FTMetrics/php/public/search.php'">back</button>
     	<div class="jumbotron">
-			<div class="row">  <a href="./index.php"></a>
+		<button type="button" class="btn btn-primary"
+			onclick="location='/FTMetrics/php/public/search.php'">back</button>
+			<div class="row">
 				<h1 class='text-center display-1 col'><a href="./index.php"> FTMetrics</a></h1>
 
 				<!--inicio del formulario-->
