@@ -1,8 +1,8 @@
+<?php if (session_start()){session_destroy();} ?>
 <!doctype html>
 
 <?php
 
-	if (session_start()){session_destroy();}
 	require('../conection/conexion.php');
 	require('../conection/consultas.php');
 
@@ -15,8 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    
-	<title>FTMetrics</title>
+	<title>FTMetrics</title>	
   </head>
   <body>
     <div class="container">

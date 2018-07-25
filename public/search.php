@@ -1,17 +1,16 @@
+<?php session_start(); ?>
 <!doctype html>
 
 <?php
 
-session_start();
-print_r($_SESSION);
-
-$_SESSION['opcion1'] = $_POST['seleccion'];
-if ($_POST['inicio'] == "" || $_POST['final'] == ""){
-		header("Location:"."/FTMetrics/php/");
-}else{
-	$_SESSION['opcion1'] = $_POST['seleccion'];
-	$_SESSION['fechaI1'] = str_replace("T"," ",$_POST['inicio']).":00.000" ;
-	$_SESSION['fechaF1'] = str_replace("T"," ",$_POST['final']).":00.000" ;
+if ( !(isset($_SESSION['opcion1'])) ){
+	if ( !(isset($_POST['inicio'])) || $_POST['inicio'] == "" || !(isset($_POST['final'])) || $_POST['final'] == ""){
+		header("Location:"."/FTMetrics/php/public/");
+	}else{
+		$_SESSION['opcion1'] = $_POST['seleccion'];
+		$_SESSION['fechaI1'] = str_replace("T"," ",$_POST['inicio']).":00.000" ;
+		$_SESSION['fechaF1'] = str_replace("T"," ",$_POST['final']).":00.000" ;
+	}
 }
 
 	require('../conection/conexion.php');
@@ -36,6 +35,8 @@ if ($_POST['inicio'] == "" || $_POST['final'] == ""){
   </head>
   <body>
     <div class="container">
+	<button type="button" class="btn btn-outline-primary btn-lg btn-block" 
+	onclick="location='/FTMetrics/php/public/'">back</button>
     	<div class="jumbotron">
 			<div class="row">  <a href="./index.php"></a>
 				<h1 class='text-center display-1 col'><a href="./index.php"> FTMetrics</a></h1>

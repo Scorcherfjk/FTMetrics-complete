@@ -1,11 +1,13 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="es">
   <head>
 
 	<?php
+	print_r($_SESSION);
 
 	if ($_POST['inicio'] == "" || $_POST['final'] == ""){
-		header("Location:"."/FTMetrics/php/");
+		header("Location:"."/FTMetrics/php/public/");
 	}else{
 		$_SESSION['opcion3'] = $_POST['seleccion'];
 		$_SESSION['fechaI3'] = $_POST['inicio'];
@@ -19,7 +21,7 @@
 	$final = $_POST['final'];
 
 	if ( isset($_POST['addScrap']) && $_POST['addScrap'] != "" ){
-			header("Location:"."/FTMetrics/php/");
+			header("Location:"."/FTMetrics/php/public/");
 	}else{
 		$_POST['seleccion'] = $_SESSION['opcion3'];
 		$_POST['inicio'] = $_SESSION['fechaI3'];
@@ -83,8 +85,18 @@ while ( $fila = sqlsrv_fetch_array($prep) ){
 		</div>
 		<button type="submit" class="btn btn-primary mb-2">Add Scrap</button>
 	  </form>
-
 <?php
 }
 
-?>
+?>  
+
+<br><button type="button" class="btn btn-primary btn-lg btn-block"
+style="max-width:510px; margin:auto;" 
+onclick="location='/FTMetrics/php/public/searchSpecific.php'">back</button>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  </body>
+</html>

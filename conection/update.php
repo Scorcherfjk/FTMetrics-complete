@@ -10,7 +10,7 @@
     if ($tt){
         sqlsrv_commit( $conn );
         sqlsrv_close( $conn); 
-        header("Location:"."/FTMetrics/php/");
+        header("Location:"."/FTMetrics/php/public/searchSpecific.php");
     }else{
         sqlsrv_rollback($conn);
         sqlsrv_close( $conn); 

@@ -1,16 +1,16 @@
+<?php session_start(); ?>
 <!doctype html>
 
 <?php
 
-session_start();
-print_r($_SESSION);
-
-if ($_POST['inicio'] == "" || $_POST['final'] == ""){
-	header("Location:"."/FTMetrics/php/");
-}else{
-	$_SESSION['opcion2'] = $_POST['seleccion'];
-	$_SESSION['fechaI2'] = $_POST['inicio'];
-	$_SESSION['fechaF2'] = $_POST['final'];
+if ( !(isset($_SESSION['opcion2'])) ){
+	if ( !(isset($_POST['inicio'])) || $_POST['inicio'] == "" || !(isset($_POST['final'])) || $_POST['final'] == ""){
+		header("Location:"."/FTMetrics/php/public/");
+	}else{
+		$_SESSION['opcion2'] = $_POST['seleccion'];
+		$_SESSION['fechaI2'] = $_POST['inicio'];
+		$_SESSION['fechaF2'] = $_POST['final'];
+	}
 }
 
 	require('../conection/conexion.php');
@@ -33,6 +33,8 @@ if ($_POST['inicio'] == "" || $_POST['final'] == ""){
   </head>
   <body>
     <div class="container">
+	<button type="button" class="btn btn-outline-primary btn-lg btn-block"
+	onclick="location='/FTMetrics/php/public/search.php'">back</button>
     	<div class="jumbotron">
 			<div class="row">  <a href="./index.php"></a>
 				<h1 class='text-center display-1 col'><a href="./index.php"> FTMetrics</a></h1>
@@ -84,9 +86,9 @@ if ($_POST['inicio'] == "" || $_POST['final'] == ""){
 			//construyendo la consulta de la tabla
 
 			//formateo de las variables para la consulta
-			$opcion = $_POST['seleccion'];
-			$inicio = $_POST['inicio'];
-			$final = $_POST['final'];
+			$opcion = $_SESSION['opcion2'];
+			$inicio = $_SESSION['fechaI2'];
+			$final = $_SESSION['fechaF2'];
 			
 			//consulta al pasar la fecha
 			$query = primaryQuery($opcion,$inicio,$final);
@@ -171,8 +173,8 @@ if ($_POST['inicio'] == "" || $_POST['final'] == ""){
 
 		}
 			?>
-	</div>
-	
+</div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
