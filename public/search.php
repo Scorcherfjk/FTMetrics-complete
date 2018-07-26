@@ -121,102 +121,75 @@ if ( !(isset($_SESSION['opcion1'])) ){
 						
 					<!--construccion de las celdas-->
 					<?php while ($fila = sqlsrv_fetch_array($prep)){
-						json_encode($fila);
-						
-						//celdas normales
-						if ($fila['sPartId'] == end($contador)['sPartId']){
-							if ($datos12 != []){ 
-								json_encode($datos12); ?>
-								<tr class='text-right'>
-									<form action="searchSpecific.php" method="post">
-										<th scope="row"><?php echo $datos12[0]['sShortName'] ?></th>
-										<td><?php echo $datos12[0]['sPartId']; ?></td>
-										<td><?php echo  substr($datos12[0]['tStart']->date, 0, 19); ?></td>
-										<td><?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?></td>
-										<td><?php $val = total($datos12, 'dPartCount');
-													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
-										<td><?php $val = total($datos12, 'dTotalParts');
-													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
-										<td><?php $val = total($datos12, 'dScrapParts');
-													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, 3)) : $val; ?></td>
-										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12[0]['lOEEConfigWorkCellId']; ?>">
-										<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos12[0]['tStart']->date, 0, 19); ?>">
-										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?>">						
-										<td>
-											<input class="btn btn-dark btn-sm" type="submit" value="modify">
-										</td>
-									</form>
-								</tr>
+						$ff[] = $fila;
+					}
+
+				foreach ($ff as $position => $value) {
+
+					$datos1[] = $value;
+					if (count($ff)-1 > $position){
+
+						if ($ff[$position]['sPartId'] != $ff[$position+1]['sPartId'] ){
+							
+							json_encode($datos1); ?>
+									<tr class='text-right'>
+										<form action="searchSpecific.php" method="post">
+											<th scope="row"><?php echo $datos1[0]['sShortName'] ?></th>
+											<td><?php echo $datos1[0]['sPartId']; ?></td>
+											<td><?php echo  substr($datos1[0]['tStart']->date, 0, 19); ?></td>
+											<td><?php echo substr(end($datos1)['tEnd']->date, 0, 19); ?></td>
+											<td><?php $val = total($datos1, 'dPartCount');
+														echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+															.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+											<td><?php $val = total($datos1, 'dTotalParts');
+														echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+															.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+											<td><?php $val = total($datos1, 'dScrapParts');
+														echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+															.substr($val, strrpos ($val, 3)) : $val; ?></td>
+											<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos1[0]['lOEEConfigWorkCellId']; ?>">
+											<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos1[0]['tStart']->date, 0, 19); ?>">
+											<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos1)['tEnd']->date, 0, 19); ?>">						
+											<td>
+												<input class="btn btn-dark btn-sm" type="submit" value="modify">
+											</td>
+										</form>
+									</tr>
 
 								<?php
-							}
-							$datos16[] = $fila;
-							$datos12 = array();
+							$datos1 = array();
+						}
 
-						}else{
-							if ($datos16 != []){ 
-								json_encode($datos16); ?>
-
-								<tr class='text-right'>
-									<form action="searchSpecific.php" method="post">
-										<th scope="row"><?php echo $datos16[0]['sShortName'] ?></th>
-										<td><?php echo $datos16[0]['sPartId']; ?></td>
-										<td><?php echo  substr($datos16[0]['tStart']->date, 0, 19); ?></td>
-										<td><?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?></td>
-										<td><?php $val = total($datos16, 'dPartCount');
-													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
-										<td><?php $val = total($datos16, 'dTotalParts');
-													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
-										<td><?php $val = total($datos16, 'dScrapParts');
-													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, 3)) : $val; ?></td>
-										</td><input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16[0]['lOEEConfigWorkCellId'] ; ?>">
-										<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos16[0]['tStart']->date, 0, 19); ?>">
-										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?>">						
-										<td>
-											<input class="btn btn-dark btn-sm" type="submit" value="modify">
-										</td>
-									</form>
-								</tr>
-
-							<?php
-							}
-							$datos12[] = $fila;
-							$datos16 = array();
+					}else{
+						json_encode($datos1); ?>
+									<tr class='text-right'>
+										<form action="searchSpecific.php" method="post">
+											<th scope="row"><?php echo $datos1[0]['sShortName'] ?></th>
+											<td><?php echo $datos1[0]['sPartId']; ?></td>
+											<td><?php echo  substr($datos1[0]['tStart']->date, 0, 19); ?></td>
+											<td><?php echo substr(end($datos1)['tEnd']->date, 0, 19); ?></td>
+											<td><?php $val = total($datos1, 'dPartCount');
+														echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+															.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+											<td><?php $val = total($datos1, 'dTotalParts');
+														echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+															.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+											<td><?php $val = total($datos1, 'dScrapParts');
+														echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+															.substr($val, strrpos ($val, 3)) : $val; ?></td>
+											<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos1[0]['lOEEConfigWorkCellId']; ?>">
+											<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos1[0]['tStart']->date, 0, 19); ?>">
+											<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos1)['tEnd']->date, 0, 19); ?>">						
+											<td>
+												<input class="btn btn-dark btn-sm" type="submit" value="modify">
+											</td>
+										</form>
+									</tr> <?php
 					}
-					$contador[] = $fila;
-				} 	
-				
-
-					$array = validar($datos12, $datos16); 
-					json_encode($array);
-					?>
-
-					<tr class='text-right'>
-					<form action="searchSpecific.php" method="post">
-						<th scope="row"><?php echo $array['sShortName'] ?></th>
-						<td><?php echo $array['sPartId']; ?></td>
-						<td><?php echo $array['tStart'];  ?></td>
-						<td><?php echo $array['tEnd'];  ?></td>
-						<td><?php echo $array['dPartCount']; ?></td>
-						<td><?php echo $array['dTotalParts']; ?></td>
-						<td><?php echo $array['dScrapParts']; ?></td>
-						<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $array['lOEEConfigWorkCellId'] ; ?>">
-						<input type="hidden"  id="inicio" name="inicio" value="<?php  echo  $array['tStart']; ?>">
-						<input type="hidden" id="final" name="final" value="<?php echo $array['tEnd']; ?>">						
-						<td>
-							<input class="btn btn-dark btn-sm" type="submit" value="modify">
-						</td>
-					</form>
-				</tr>
 					
-			<?php
-			}
+				}
+
+			} 	
 
 		}else{
 
