@@ -132,12 +132,21 @@ if ( !(isset($_SESSION['opcion2'])) ){
 									<td><?php echo $fila['sPartId'] ?></td>
 									<td><?php echo $fechaInicio ?></td>
 									<td><?php echo $fechaFinal ?></td>
-									<td><?php echo $fila['dPartCount'] ?></td>
-									<td><?php echo $fila['dTotalParts'] ?></td>
-									<td><?php echo $fila['dScrapParts'] ?></td>
+									<td><?php echo (strpos($fila['dPartCount'], '.')) ? 
+													substr($fila['dPartCount'], 0 , strpos($fila['dPartCount'], '.'))
+													.substr($fila['dPartCount'], strpos($fila['dPartCount'], '.'), 3 ) : 
+													$fila['dPartCount'] ; ?></td>
+									<td><?php echo (strpos($fila['dTotalParts'], '.')) ? 
+													substr($fila['dTotalParts'], 0 , strpos($fila['dTotalParts'], '.'))
+													.substr($fila['dTotalParts'], strpos($fila['dTotalParts'], '.'), 3 ) : 
+													$fila['dTotalParts'] ; ?></td>
+									<td><?php echo (strpos($fila['dScrapParts'], '.')) ? 
+													substr($fila['dScrapParts'], 0 , strpos($fila['dScrapParts'], '.'))
+													.substr($fila['dScrapParts'], strpos($fila['dScrapParts'], '.'), 3 ) : 
+													$fila['dScrapParts'] ; ?></td>
 									<td>can't modify</td>
 								</tr>
-
+								
 							<?php 
 							continue;
 						} ?>
@@ -149,9 +158,18 @@ if ( !(isset($_SESSION['opcion2'])) ){
 								<td><?php echo $fila['sPartId'] ?></td>
 								<td><?php echo $fechaInicio ?></td>
 								<td><?php echo $fechaFinal ?></td>
-								<td><?php echo $fila['dPartCount'] ?></td>
-								<td><?php echo $fila['dTotalParts'] ?></td>
-								<td><?php echo $fila['dScrapParts'] ?></td>
+								<td><?php echo (strpos($fila['dPartCount'], '.')) ? 
+												substr($fila['dPartCount'], 0 , strpos($fila['dPartCount'], '.'))
+												.substr($fila['dPartCount'], strpos($fila['dPartCount'], '.'), 3 ) : 
+												$fila['dPartCount'] ; ?></td>
+								<td><?php echo (strpos($fila['dTotalParts'], '.')) ? 
+												substr($fila['dTotalParts'], 0 , strpos($fila['dTotalParts'], '.'))
+												.substr($fila['dTotalParts'], strpos($fila['dTotalParts'], '.'), 3 ) : 
+												$fila['dTotalParts'] ; ?></td>
+								<td><?php echo (strpos($fila['dScrapParts'], '.')) ? 
+												substr($fila['dScrapParts'], 0 , strpos($fila['dScrapParts'], '.'))
+												.substr($fila['dScrapParts'], strpos($fila['dScrapParts'], '.'), 3 ) : 
+												$fila['dScrapParts'] ; ?></td>
 								<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $fila['lOEEConfigWorkCellId'] ; ?>">
 								<input type="hidden"  id="inicio" name="inicio" value="<?php echo $fechaInicio ; ?>">
 								<input type="hidden" id="final" name="final" value="<?php echo $fechaFinal ; ?>">						

@@ -89,9 +89,18 @@
 								<tr class="table-danger text-center" >
 								<th scope="row"><?php echo $fila['sShortName'] ?></th>
 									<td><?php echo $fila['sPartId'] ?></td>
-									<td><?php echo $fila['dPartCount'] ?></td>
-									<td><?php echo $fila['dTotalParts'] ?></td>
-									<td><?php echo $fila['dScrapParts'] ?></td>
+									<td><?php echo (strpos($fila['dPartCount'], '.')) ? 
+													substr($fila['dPartCount'], 0 , strpos($fila['dPartCount'], '.'))
+													.substr($fila['dPartCount'], strpos($fila['dPartCount'], '.'), 3 ) : 
+													substr($fila['dPartCount'], strpos($fila['dPartCount'], '.'), 3 ) ; ?></td>
+									<td><?php echo (strpos($fila['dTotalParts'], '.')) ? 
+													substr($fila['dTotalParts'], 0 , strpos($fila['dTotalParts'], '.'))
+													.substr($fila['dTotalParts'], strpos($fila['dTotalParts'], '.'), 3 ) : 
+													substr($fila['dTotalParts'], strpos($fila['dTotalParts'], '.'), 3 ) ; ?></td>
+									<td><?php echo (strpos($fila['dScrapParts'], '.')) ? 
+													substr($fila['dScrapParts'], 0 , strpos($fila['dScrapParts'], '.'))
+													.substr($fila['dScrapParts'], strpos($fila['dScrapParts'], '.'), 3 ) : 
+													substr($fila['dScrapParts'], strpos($fila['dScrapParts'], '.'), 3 ) ; ?></td>
 								</tr>
 							<?php 
 							continue;
@@ -100,9 +109,18 @@
 						<tr class='text-center'>
 							<th scope="row"><?php echo $fila['sShortName'] ?></th>
 							<td><?php echo $fila['sPartId'] ?></td>
-							<td><?php echo $fila['dPartCount'] ?></td>
-							<td><?php echo $fila['dTotalParts'] ?></td>
-							<td><?php echo $fila['dScrapParts'] ?></td>						
+							<td><?php echo (strpos($fila['dPartCount'], '.')) ? 
+											substr($fila['dPartCount'], 0 , strpos($fila['dPartCount'], '.'))
+											.substr($fila['dPartCount'], strpos($fila['dPartCount'], '.'), 3 ) : 
+											$fila['dPartCount'] ; ?></td>
+							<td><?php echo (strpos($fila['dTotalParts'], '.')) ? 
+											substr($fila['dTotalParts'], 0 , strpos($fila['dTotalParts'], '.'))
+											.substr($fila['dTotalParts'], strpos($fila['dTotalParts'], '.'), 3 ) : 
+											$fila['dTotalParts'] ; ?></td>
+							<td><?php echo (strpos($fila['dScrapParts'], '.')) ? 
+											substr($fila['dScrapParts'], 0 , strpos($fila['dScrapParts'], '.'))
+											.substr($fila['dScrapParts'], strpos($fila['dScrapParts'], '.'), 3 ) : 
+											$fila['dScrapParts'] ; ?></td>
 						</tr>
 					<?php
 					} 					

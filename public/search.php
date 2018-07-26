@@ -18,6 +18,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 	require('../connection/funciones.php');
 	$datos12 = array();
 	$datos16 = array();
+	$contador = array();
 
 ?>
 
@@ -121,20 +122,26 @@ if ( !(isset($_SESSION['opcion1'])) ){
 					<!--construccion de las celdas-->
 					<?php while ($fila = sqlsrv_fetch_array($prep)){
 						json_encode($fila);
-
+						
 						//celdas normales
-						if ($fila['sPartId'] == '16 oz'){
+						if ($fila['sPartId'] != end($contador)['sPartId']){
 							if ($datos12 != []){ 
 								json_encode($datos12); ?>
-								<tr class='text-center'>
+								<tr class='text-right'>
 									<form action="searchSpecific.php" method="post">
 										<th scope="row"><?php echo $datos12[0]['sShortName'] ?></th>
 										<td><?php echo $datos12[0]['sPartId']; ?></td>
 										<td><?php echo  substr($datos12[0]['tStart']->date, 0, 19); ?></td>
 										<td><?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?></td>
-										<td><?php echo total($datos12, 'dPartCount'); ?></td>
-										<td><?php echo total($datos12, 'dTotalParts'); ?></td>
-										<td><?php echo total($datos12, 'dScrapParts'); ?></td>
+										<td><?php $val = total($datos12, 'dPartCount');
+													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+										<td><?php $val = total($datos12, 'dTotalParts');
+													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+										<td><?php $val = total($datos12, 'dScrapParts');
+													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+														.substr($val, strrpos ($val, 3)) : $val; ?>
 										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12[0]['lOEEConfigWorkCellId'] ; ?>">
 										<input type="hidden"  id="inicio" name="inicio" value="<?php echo  substr($datos12[0]['tStart']->date, 0, 19); ?>">
 										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?>">						
@@ -152,16 +159,23 @@ if ( !(isset($_SESSION['opcion1'])) ){
 						}else{
 							if ($datos16 != []){ 
 								json_encode($datos16); ?>
-								<tr class='text-center'>
+
+								<tr class='text-right'>
 									<form action="searchSpecific.php" method="post">
 										<th scope="row"><?php echo $datos16[0]['sShortName'] ?></th>
 										<td><?php echo $datos16[0]['sPartId']; ?></td>
 										<td><?php echo  substr($datos16[0]['tStart']->date, 0, 19); ?></td>
 										<td><?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?></td>
-										<td><?php echo total($datos16, 'dPartCount'); ?></td>
-										<td><?php echo total($datos16, 'dTotalParts'); ?></td>
-										<td><?php echo total($datos16, 'dScrapParts'); ?></td>
-										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16[0]['lOEEConfigWorkCellId'] ; ?>">
+										<td><?php $val = total($datos16, 'dPartCount');
+													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+										<td><?php $val = total($datos16, 'dTotalParts');
+													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
+										<td><?php $val = total($datos16, 'dScrapParts');
+													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+														.substr($val, strrpos ($val, 3)) : $val; ?>
+										</td><input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16[0]['lOEEConfigWorkCellId'] ; ?>">
 										<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos16[0]['tStart']->date, 0, 19); ?>">
 										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?>">						
 										<td>
@@ -175,6 +189,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 							$datos12[] = $fila;
 							$datos16 = array();
 					}
+					$contador[] = $fila;
 				} 	
 				
 

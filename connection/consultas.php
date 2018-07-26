@@ -3,14 +3,14 @@
 function defaultQuery()
 {
     $query = "SELECT 							
-            TOP 1000						
+            TOP 100						
             cwc.sShortName
             ,wc.sPartId
             ,SUM(wc.dPartCount) AS dPartCount
             ,SUM(wc.dTotalParts) AS dTotalParts
             ,SUM(wc.dScrapParts) AS dScrapParts
-        FROM FTMetrics.dbo.OEEWorkCell as wc
-            ,FTMetrics.dbo.OEEConfigWorkCell as cwc
+        FROM FTMetrics2.dbo.OEEWorkCell as wc
+            ,FTMetrics2.dbo.OEEConfigWorkCell as cwc
         WHERE wc.lOEEConfigWorkCellId = cwc.lOEEConfigWorkCellId
         GROUP BY cwc.sShortName, wc.sPartId
         ORDER BY cwc.sShortName";
@@ -29,8 +29,8 @@ function primaryQuery($opcion,$inicio,$final)
             wc.dPartCount,
             wc.dTotalParts,
             wc.dScrapParts
-        FROM FTMetrics.dbo.OEEWorkCell as wc
-        ,FTMetrics.dbo.OEEConfigWorkCell as cwc
+        FROM FTMetrics2.dbo.OEEWorkCell as wc
+        ,FTMetrics2.dbo.OEEConfigWorkCell as cwc
         WHERE wc.lOEEConfigWorkCellId = cwc.lOEEConfigWorkCellId
             AND wc.lOEEConfigWorkCellId = $opcion
             AND (wc.tStart >= '$inicio' OR wc.tEnd <= '$final')
@@ -42,8 +42,8 @@ function primaryQuery($opcion,$inicio,$final)
 
 function dropDown(){
     $query ="SELECT cwc.sShortName as ssn, wc.lOEEConfigWorkCellId as icwc
-            FROM FTMetrics.dbo.OEEWorkCell as wc, 
-                FTMetrics.dbo.OEEConfigWorkCell as cwc
+            FROM FTMetrics2.dbo.OEEWorkCell as wc, 
+                FTMetrics2.dbo.OEEConfigWorkCell as cwc
             WHERE wc.lOEEConfigWorkCellId = cwc.lOEEConfigWorkCellId
             GROUP BY cwc.sShortName, wc.lOEEConfigWorkCellId 
             ORDER BY cwc.sShortName";
@@ -52,8 +52,8 @@ function dropDown(){
 }
 
 function updateQuery($lOEEWorkCellId, $quantity){
-
-    $query = "UPDATE FTMetrics.dbo.OEEWorkCell
+    
+    $query = "UPDATE FTMetrics2.dbo.OEEWorkCell
             SET dPartCount = (dPartCount - '$quantity'), dScrapParts = '$quantity'
             WHERE lOEEWorkCellId = '$lOEEWorkCellId'";
 
