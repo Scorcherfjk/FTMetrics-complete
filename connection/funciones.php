@@ -35,19 +35,16 @@ function validar($array1, $array2)
         $shortName = $array1[0]['sShortName'] ;
         $partId = $array1[0]['sPartId'] ;
         $fechaI = substr($array1[0]['tStart']->date, 0, 19);
-        $fechaF = substr(end($array1)['tEnd']->date, 0, 19);
-        $dTotalParts = (strpos(total($array1, 'dTotalParts'), '.')) ?
-                        substr(total($array1, 'dTotalParts'), 0 , strpos(total($array1, 'dTotalParts'), '.'))
-                        .substr(total($array1, 'dTotalParts'), strrpos (total($array1, 'dTotalParts', ".") , 3)) : 
-                        total($array1, 'dTotalParts');
-        $dScrapParts = (strpos(total($array1, 'dScrapParts'), '.')) ?
-                        substr(total($array1, 'dScrapParts'), 0 , strpos(total($array1, 'dScrapParts'), '.'))
-                        .substr(total($array1, 'dScrapParts'), strrpos (total($array1, 'dScrapParts', ".") , 3)) : 
-                        total($array1, 'dScrapParts');
-        $dPartCount = (strpos(total($array1, 'dPartCount'), '.')) ? 
-                        substr(total($array1, 'dPartCount'), 0 , strpos(total($array1, 'dPartCount'), '.'))
-                        .substr(total($array1, 'dPartCount'), strrpos (total($array1, 'dPartCount', ".") , 3)) : 
-                        total($array1, 'dPartCount') ;
+        $fechaF = substr(end($array1)['tEnd']->date, 0, 19); 
+        $dTotalParts = $val = total($array1, 'dTotalParts');
+                        (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+                        .substr($val, strrpos ($val, ".") , 3):  $val;
+        $dScrapParts = $val = total($array1, 'dScrapParts');
+                        (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+                        .substr($val, strrpos ($val, ".") , 3):  $val;
+        $dPartCount = $val = total($array1, 'dPartCount');
+                        (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+                        .substr($val, strrpos ($val, ".") , 3):  $val;
         $array = array( 'lOEEConfigWorkCellId' => $Id, 
                         'sShortName' => $shortName,
                         'sPartId' =>  $partId,
@@ -69,18 +66,15 @@ function validar($array1, $array2)
         $partId = $array2[0]['sPartId'] ;
         $fechaI = substr($array2[0]['tStart']->date, 0, 19);
         $fechaF = substr(end($array2)['tEnd']->date, 0, 19);
-        $dTotalParts = (strpos(total($array2, 'dTotalParts'), '.')) ?
-                        substr(total($array2, 'dTotalParts'), 0 , strpos(total($array2, 'dTotalParts'), '.'))
-                        .substr(total($array2, 'dTotalParts'), strrpos (total($array2, 'dTotalParts', ".") , 3)) : 
-                        total($array2, 'dTotalParts');
-        $dScrapParts = (strpos(total($array2, 'dScrapParts'), '.')) ?
-                        substr(total($array2, 'dScrapParts'), 0 , strpos(total($array2, 'dScrapParts'), '.'))
-                        .substr(total($array2, 'dScrapParts'), strrpos (total($array2, 'dScrapParts', ".") , 3)) : 
-                        total($array2, 'dScrapParts');
-        $dPartCount = (strpos(total($array2, 'dPartCount'), '.')) ?
-                        substr(total($array2, 'dPartCount'), 0 , strpos(total($array2, 'dPartCount'), '.'))
-                        .substr(total($array2, 'dPartCount'), strrpos (total($array2, 'dPartCount', ".") , 3)) : 
-                        total($array2, 'dPartCount'); 
+        $dTotalParts = $val = total($array2, 'dTotalParts');
+                        (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+                        .substr($val, strrpos ($val, ".") , 3):  $val;
+        $dScrapParts = $val = total($array2, 'dScrapParts');
+                        (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+                        .substr($val, strrpos ($val, ".") , 3):  $val;
+        $dPartCount = $val = total($array2, 'dPartCount');
+                        (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
+                        .substr($val, strrpos ($val, ".") , 3):  $val;
         $array = array( 'lOEEConfigWorkCellId' => $Id, 
                         'sShortName' => $shortName,
                         'sPartId' =>  $partId,
