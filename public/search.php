@@ -124,7 +124,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 						json_encode($fila);
 						
 						//celdas normales
-						if ($fila['sPartId'] != end($contador)['sPartId']){
+						if ($fila['sPartId'] == end($contador)['sPartId']){
 							if ($datos12 != []){ 
 								json_encode($datos12); ?>
 								<tr class='text-right'>
@@ -141,9 +141,9 @@ if ( !(isset($_SESSION['opcion1'])) ){
 														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
 										<td><?php $val = total($datos12, 'dScrapParts');
 													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, 3)) : $val; ?>
-										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12[0]['lOEEConfigWorkCellId'] ; ?>">
-										<input type="hidden"  id="inicio" name="inicio" value="<?php echo  substr($datos12[0]['tStart']->date, 0, 19); ?>">
+														.substr($val, strrpos ($val, 3)) : $val; ?></td>
+										<input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos12[0]['lOEEConfigWorkCellId']; ?>">
+										<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos12[0]['tStart']->date, 0, 19); ?>">
 										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos12)['tEnd']->date, 0, 19); ?>">						
 										<td>
 											<input class="btn btn-dark btn-sm" type="submit" value="modify">
@@ -174,7 +174,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 														.substr($val, strrpos ($val, ".") , 3) : $val; ?></td>
 										<td><?php $val = total($datos16, 'dScrapParts');
 													echo (strpos($val, '.')) ? substr($val, 0 , strpos($val, '.'))
-														.substr($val, strrpos ($val, 3)) : $val; ?>
+														.substr($val, strrpos ($val, 3)) : $val; ?></td>
 										</td><input type="hidden" id="seleccion" name="seleccion" value="<?php echo $datos16[0]['lOEEConfigWorkCellId'] ; ?>">
 										<input type="hidden"  id="inicio" name="inicio" value="<?php echo substr($datos16[0]['tStart']->date, 0, 19); ?>">
 										<input type="hidden" id="final" name="final" value="<?php echo substr(end($datos16)['tEnd']->date, 0, 19); ?>">						
@@ -197,7 +197,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 					json_encode($array);
 					?>
 
-					<tr class='text-center'>
+					<tr class='text-right'>
 					<form action="searchSpecific.php" method="post">
 						<th scope="row"><?php echo $array['sShortName'] ?></th>
 						<td><?php echo $array['sPartId']; ?></td>
