@@ -3,8 +3,6 @@
 
 <?php
 
-print_r($_SESSION);
-
 if ( !(isset($_SESSION['opcion2'])) ){
 	if ( !(isset($_POST['inicio'])) || $_POST['inicio'] == "" || !(isset($_POST['final'])) || $_POST['final'] == ""){
 		header("Location:"."/FTMetrics/php/public/");
