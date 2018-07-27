@@ -39,7 +39,7 @@ if ( !(isset($_SESSION['opcion2'])) ){
     <div class="container">
     	<div class="jumbotron">
 		<button type="button" class="btn btn-primary"
-			onclick="location='/FTMetrics/php/public/search.php'">back</button>
+			onclick="location='/FTMetrics/FTMetrics-complete/public/search.php'">back</button>
 			<div class="row">
 				<h1 class='text-center display-1 col'><a href="./index.php"> FTMetrics</a></h1>
 

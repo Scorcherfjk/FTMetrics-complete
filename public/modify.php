@@ -91,7 +91,7 @@ while ( $fila = sqlsrv_fetch_array($prep) ){
 
 <br><button type="button" class="btn btn-primary btn-lg btn-block"
 style="max-width:510px; margin:auto;" 
-onclick="location='/FTMetrics/php/public/searchSpecific.php'">back</button>
+onclick="location='/FTMetrics/FTMetrics-complete/public/searchSpecific.php'">back</button>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

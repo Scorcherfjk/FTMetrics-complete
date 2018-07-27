@@ -19,6 +19,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 	$datos12 = array();
 	$datos16 = array();
 	$contador = array();
+	$ff = array();
 
 ?>
 
@@ -39,7 +40,7 @@ if ( !(isset($_SESSION['opcion1'])) ){
 	
     	<div class="jumbotron">
 		<button type="button" class="btn btn-primary" 
-			onclick="location='/FTMetrics/php/public/'">back</button>
+			onclick="location='/FTMetrics/FTMetrics-complete/php/public/'">back</button>
 			<div class="row">
 				
 				<h1 class='text-center display-1 col'><a href="./index.php"> FTMetrics</a></h1>
